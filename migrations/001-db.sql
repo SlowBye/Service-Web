@@ -1,24 +1,29 @@
 --------------------------------------------------------------------------------
 -- Up
 --------------------------------------------------------------------------------
-CREATE TABLE Prof (
-    pseudo VARCHAR(255) PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    prenom VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    cours INTEGER NOT NULL,
-    FOREIGN KEY (cours) REFERENCES Cours(id)
+CREATE TABLE Event (
+    id_Event INTEGER PRIMARY KEY AUTOINCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Cours(
-    id Serial PRIMARY KEY,
-    nom_prof INTEGER NOT NULL,
-    nom VARCHAR(255) NOT NULL,
-    FOREIGN KEY (nom_prof) REFERENCES Prof(pseudo)
+CREATE TABLE Timing (
+    id_Timing INTEGER PRIMARY KEY AUTOINCREMENT,
+    start DATE NOT NULL,
+    end DATE NOT NULL,
+    comment VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Link (
+    id_event INT NOT NULL,
+    id_timing INT NOT NULL,
+    FOREIGN KEY (id_event) REFERENCES Event(id_Event),
+    FOREIGN KEY (id_timing) REFERENCES Timing(id_timing)
 );
 
 --------------------------------------------------------------------------------
 -- Down
 --------------------------------------------------------------------------------
-Drop table Cours;
-Drop table Prof;
+DROP TABLE Event;
+DROP TABLE Timing;
+DROP TABLE Link;
