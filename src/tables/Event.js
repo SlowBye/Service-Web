@@ -1,8 +1,16 @@
 class Event {
+    #id
+    #title
+    #description
+    
   constructor(id=null, title, description) {
-      this.title = title;
-      this.description = description;
+    this.title = title;
+    this.description = description;
   }
+
+  setId(id) {
+        this.id = id;
+    }
 
   getId() {
       return this.id;

@@ -1,20 +1,31 @@
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
+import Timing from '../tables/Timings.js'
+import Event from '../tables/Event.js'
 class Dao {
     constructor(){}
 
-    async insert(data,type) {
+    async insert(data, type) {
         const db = await open({
             filename: './db/database.db',
             driver: sqlite3.Database
-        })
-        if(type==="Event"){
-            await db.run('INSERT INTO Event (title, description) VALUES (?, ?)', [data.title, data.description]);
-        }
-        else{
-            await db.run('INSERT INTO Timing (start, end, comment) VALUES (?, ?, ?)', [ data.start, data.end, data.comment]);
+        });
+    
+        try {
+            if (type === "Event") {
+                const result = await db.run('INSERT INTO Event (title, description) VALUES (?, ?)', [data.title, data.description]);
+                await data.setId(result.lastID);
+                console.log(result.lastID);
+            } else {
+                const result = await db.run('INSERT INTO Timing (start, end, comment) VALUES (?, ?, ?)', [data.start, data.end, data.comment]);
+                await data.setIdTiming(result.lastID);
+                console.log(result.lastID);
+            }
+        } catch (err) {
+            console.error(err.message);
         }
     }
+    
 
     async update(data,type){
         const db = await open({
@@ -35,10 +46,10 @@ class Dao {
             driver: sqlite3.Database
         })
         if(type==="Event"){
-            await db.run('DELETE FROM Event WHERE id_Event = ?', [data.id_Event]);
+            await db.run('DELETE FROM Event WHERE id_Event = ?', [data.id]);
         }
         else{
-            await db.run('DELETE FROM Timing WHERE id_timing = ?', [data.id_Timing]);
+            await db.run('DELETE FROM Timing WHERE id_timing = ?', [data.id]);
         }
     }
 
@@ -48,23 +59,26 @@ class Dao {
             driver: sqlite3.Database
         })
         if(type==="Event"){
-            await db.get('SELECT * FROM Event WHERE id_Event = ?', [data.id_Event]);
+            return await db.get('SELECT * FROM Event WHERE id_Event = ?', [data.id]);
         }
         else{
-            await db.get('SELECT * FROM Timing WHERE id_timing = ?', [data.id_Timing]);
+            return await db.get('SELECT * FROM Timing WHERE id_timing = ?', [data.id]);
         }
     }
 
     async findAll(type){
         const db = await open({
-            filename: '../../db/database.db',
+            filename: './db/database.db',
             driver: sqlite3.Database
         })
         if(type==="Event"){
-            await db.all("SELECT * FROM Event");
+            const result = await db.all('SELECT * FROM Event');
+            return result;
         }
         else{
-            await db.all("SELECT * FROM Timing");
+            const result = await db.all('SELECT * FROM Timing')
+            console.log(result);
+            return result;
         }
     }
 }

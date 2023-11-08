@@ -39,8 +39,10 @@ async function App() {
     //creation d'un event
     const event = new Event("","test","test");
 
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
     //creation d'un timing
-    const timing = new Timing("","2021-01-01 00:00:00","2021-01-01 00:00:00","test");
+    const timing = new Timing("",formattedDate,formattedDate,"test");
 
     //creation d'un dao
     const eventSqliteDao = new EventSqliteDao();
@@ -49,6 +51,21 @@ async function App() {
     //ajouter a la bdd
     await eventSqliteDao.insert(event);
     await timingSqliteDao.insert(timing);
+
+    //afficher la bdd
+    let res1 = await eventSqliteDao.findAll();
+    console.log(res1);
+    let res2 = await timingSqliteDao.findAll();
+    console.log(res2);
+
+    console.log(event.getId());
+    console.log(timing.getIdTiming());
+
+
+    //delete de la bdd
+    await eventSqliteDao.delete(event);
+    await timingSqliteDao.delete(timing);
+    
 
     console.log("App is done");
 }

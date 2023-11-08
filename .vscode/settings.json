@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "oui",
+            "database": "${workspaceFolder:Service-web}/db/database.db"
+        }
+    ]
+}
