@@ -1,21 +1,22 @@
 class Timing {
-    #id_timing;
+    #id;
     #start;
     #end;
     #comment;
     
-  constructor(id_Timing=null, start, end, comment) {
-      this.start = start;
-      this.end = end;
-      this.comment = comment;
+  constructor(id=null, start, end, comment) {
+    this.id = id;
+    this.start = start;
+    this.end = end;
+    this.comment = comment;
   }
 
     setIdTiming(id) {
-        this.id_timing = id;
+        this.id_Timing = id;
     }
 
   getIdTiming() {
-      return this.id_timing;
+      return this.id_Timing;
   }
 
   getStart() {

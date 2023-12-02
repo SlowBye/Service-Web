@@ -1,32 +1,46 @@
 import express from 'express';
-import timing from '../dao/timingSqliteDao.js';
-import event from '../dao/eventSqliteDao.js';
+import timingRoute from './routes/findTimingAll.js';
+import eventRoute from './routes/findEventAll.js'; 
+import eventDelete from './routes/deleteEvent.js';
+import timingDelete from './routes/deleteTiming.js';
+import insertEvent from './routes/insertEvent.js';
+import insertTiming from './routes/insertTiming.js';
+import findEventId from './routes/findEventId.js';
+import findTimingId from './routes/findTimingId.js';
+import updateEvent from './routes/updateEvent.js';
+import updateTiming from './routes/updateTiming.js';
+import eventDeleteAll from './routes/deleteAllEvent.js';
+import timingDeleteAll from './routes/deleteAllTiming.js';
 
-
+const jwt = require('jsonwebtoken')
 const app = express();
 const port = 3001;
 
-// Endpoint pour afficher "Hello, World!"
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+const user = {
+    id: 1,
+    username: 'user',
+    password: 'mdp',
+};
 
-// Endpoint pour afficher tous les timings
-app.get('/timing', (req, res) => {
-    const time = new timing();
-    time.findAll().then((result) => {
-        res.send(result);
-    });
-});
+app.use(express.json());
 
+app.use('/timingFindAll', timingRoute);
+app.use('/eventFindAll', eventRoute);
 
+app.use('/eventDelete', eventDelete);
+app.use('/timingDelete', timingDelete);
 
-// Endpoint pour afficher tous les events
-app.get('/event', (req, res) => {
-    event.getAllEvents().then((result) => {
-        res.send(result);
-    });
-});
+app.use('/insertEvent', insertEvent);
+app.use('/insertTiming', insertTiming);
+
+app.use('/findEventId', findEventId);
+app.use('/findTimingId', findTimingId);
+
+app.use('/updateEvent', updateEvent);
+app.use('/updateTiming', updateTiming);
+
+app.use('/eventDeleteAll', eventDeleteAll);
+app.use('/timingDeleteAll', timingDeleteAll);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

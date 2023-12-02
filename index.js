@@ -17,9 +17,9 @@ function databaseExists() {
     }
 }
 
-async function creerdb() {
+async function creerdb(db) {
     if (!databaseExists()) {
-        const db = await open({
+        db = await open({
             filename: './db/database.db',
             driver: sqlite3.Database,
         });
@@ -32,9 +32,9 @@ async function creerdb() {
 //code général de l'application
 async function App() {
     console.log("App is running");
-    
+    var db 
     //cration d'une base de donnée 
-    await creerdb();
+    await creerdb(db);
 
     //creation d'un event
     const event = new Event("","test","test");
@@ -49,13 +49,13 @@ async function App() {
     const timingSqliteDao = new TimingSqliteDao();
 
     //ajouter a la bdd
-    await eventSqliteDao.insert(event);
-    await timingSqliteDao.insert(timing);
+    await eventSqliteDao.insert(event,db);
+    await timingSqliteDao.insert(timing,db);
 
     //afficher la bdd
-    let res1 = await eventSqliteDao.findAll();
+    let res1 = await eventSqliteDao.findAll(db);
     console.log(res1);
-    let res2 = await timingSqliteDao.findAll();
+    let res2 = await timingSqliteDao.findAll(db);
     console.log(res2);
 
     console.log(event.getId());
@@ -63,8 +63,8 @@ async function App() {
 
 
     //delete de la bdd
-    await eventSqliteDao.delete(event);
-    await timingSqliteDao.delete(timing);
+    await eventSqliteDao.delete(event,db);
+    await timingSqliteDao.delete(timing,db);
     
 
     console.log("App is done");

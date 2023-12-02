@@ -3,23 +3,27 @@ import Dao from './dao.js'
 class timingSqliteDao extends Dao {
 
     async findAll() {
-        super.findAll('Timings')
+        return super.findAll('Timings')
     }
 
     async findById(timing) {
-        super.findById(timing.getIdTiming(),"Timings")
+        return super.findById(timing.id,"Timings")
     }
 
     async insert(timing) {
-        super.insert(timing,"Timings")
+        return super.insert(timing,"Timings")
     }
 
     async update(timing) {
-        super.update(timing,"Timings")
+        return super.update(timing,"Timings")
     }
 
     async delete(timing) {
-        super.delete(timing.getIdTiming(),"Timings")
+        return super.delete(timing.id,"Timings")
+    }
+
+    async deleteAll() {
+        return super.deleteAll("Timings")
     }
 }
 
