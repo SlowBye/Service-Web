@@ -1,0 +1,281 @@
+openapi: 3.0.3
+info:
+  title: API Service Web - OpenAPI 3.0
+  description: Un service web simple basé sur OpenAPI 3.0
+  version: 1.0.11
+servers:
+  - url: http://localhost:3001
+paths:
+  /login:
+    post:
+      summary: Connexion d'un utilisateur
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+        required: true
+      responses:
+        '200':
+          description: Connexion réussie
+        '400':
+          description: Paramètre manquant ou invalide
+        '401':
+          description: Échec de l'authentification
+        '500':
+          description: Erreur interne du serveur
+      security:
+        - auth: []
+  /logout:
+    get:
+      summary: Déconnexion d'un utilisateur
+      responses:
+        '200':
+          description: Déconnexion réussie
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+
+  /eventFindAll:
+    get:
+      summary: Récupère tous les événements
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /timingFindAll:
+    get:
+      summary: Récupère tous les timings
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /findEventId:
+    post:
+      summary: Récupère un événement par son id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/findEventId'
+        required: true
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant
+      security:
+        - auth: []
+  /findTimingId:
+    post:
+      summary: Récupère un timing par son id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/findTimingId'
+        required: true
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant
+      security:
+        - auth: []
+  /insertEvent:
+    post:
+      summary: Insère un événement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertEvent'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /insertTiming:
+    post:
+      summary: Insère un timing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertTiming'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /upstringEvent:
+    post:
+      summary: Met à jour un événement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/upstringEvent'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /upstringTiming:
+    post:
+      summary: Met à jour un timing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/upstringTiming'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /eventDelete:
+    delete:
+      summary: Supprime un événement à partir de son ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventDelete'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /timingDelete:
+    delete:
+      summary: Supprime un timing à partir de son ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/timingDelete'
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant ou invalide
+      security:
+        - auth: []
+  /eventDeleteAll:
+    delete:
+      summary: Supprime tous les événements
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant
+      security:
+        - auth:
+          - write
+          - read
+  /timingDeleteAll:
+    delete:
+      summary: Supprime tous les timings
+      responses:
+        '200':
+          description: Succès
+        '400':
+          description: Paramètre manquant
+      security:
+        - auth:
+          - write
+          - read
+components:
+  schemas:
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    findEventId:
+      type: object
+      properties:
+        id:
+          type: string
+    findTimingId:
+      type: object
+      properties:
+        id:
+          type: string
+    insertEvent:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    insertTiming:
+      type: object
+      properties:
+        start:
+          type: string
+        end:
+          type: string
+        comment:
+          type: string
+    upstringEvent:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+    upstringTiming:
+      type: object
+      properties:
+        id:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        comment:
+          type: string
+    eventDelete:
+      type: object
+      properties:
+        id:
+          type: string
+    timingDelete:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

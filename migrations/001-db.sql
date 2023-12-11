@@ -21,9 +21,16 @@ CREATE TABLE Link (
     FOREIGN KEY (id_timing) REFERENCES Timing(id_timing)
 );
 
+CREATE TABLE Token (
+    id_Token INTEGER PRIMARY KEY AUTOINCREMENT,
+    token VARCHAR(255) NOT NULL
+);
+
 --------------------------------------------------------------------------------
 -- Down
 --------------------------------------------------------------------------------
 DROP TABLE Event;
 DROP TABLE Timing;
 DROP TABLE Link;
+DROP TABLE Token;
+```

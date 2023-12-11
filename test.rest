@@ -1,0 +1,50 @@
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+GET  http://localhost:3001/disconect
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI4OTM5OCwiZXhwIjoxNzAyMjg5OTk4fQ.KH1u67poOQRYq4whb5YCKLjxvKLs_mKhxo6xlYvS5ks
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI4Nzk2MiwiZXhwIjoxNzAyMjg4NTYyfQ.yh55y6DH-TP7NSfTXs0Lds8P1eV0kjhzjDO2ezViwBo
+###
+GET http://localhost:3001/eventFindAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI4OTM5OCwiZXhwIjoxNzAyMjg5OTk4fQ.KH1u67poOQRYq4whb5YCKLjxvKLs_mKhxo6xlYvS5ks
+
+###
+POST http://localhost:3001/disconect
+Authorization: Bearer g.eyJzdWIiOjEsImlhdCI6MTcwMjIxMjA2OX0.FCBEkLx3nT5_nwgyL7rcuoDyXlw4eAScGY4p3cKpbLc
+
+###
+GET http://localhost:3001/timingFindAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI4OTI5NiwiZXhwIjoxNzAyMjg5ODk2fQ.g3pPwpvzjYOCKjY-Z-fh4a9U8jXE6yFaSvdVCzr6sKE
+
+###
+POST http://localhost:3001/findEventId
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI3OTA0MCwiZXhwIjoxNzAyMjc5NjQwfQ.qjS6srt76rwLg87M7NiDphx7rPmfQ-BSFwUx4MZmnY8
+Content-Type: application/json
+
+{
+    "id": 1
+}
+
+###
+POST http://localhost:3001/findTimingId
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjIwOTk3OX0.WAYsiYlI950L7m8m157x7u-BUExsP9aA3gtaf-U93WQ
+Content-Type: application/json
+
+{
+    "id": 1
+}
+
+###
+DELETE  http://localhost:3001/timingDelete
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwMjI4OTIxNCwiZXhwIjoxNzAyMjg5ODE0fQ.dJrlDNLIEeTRvnzz93NaDt0D2MFk3ytIpuqjJ7TIGT4
+Content-Type: application/json
+
+{
+    "id": 1
+}

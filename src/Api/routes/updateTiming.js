@@ -3,6 +3,14 @@ import Timing from '../../dao/timingSqliteDao.js';
 import T from '../../tables/Timings.js';
 const router = express.Router();
 
+/**
+ * Fonction permettant d'insérer un objet Timing dans la base de données.
+ * @name insertTiming
+ * @function
+ * @param {Object} req - Requête envoyée par le client.
+ * @param {Object} res - Réponse envoyée au client.
+ * @returns {Object} - Résultat de la requête.
+ */
 router.post('/', async (req, res) => {
     try {
         let Te = new Timing();

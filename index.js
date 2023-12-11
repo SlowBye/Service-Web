@@ -1,22 +1,25 @@
-// import {creerdb} from "./src/Migration.js"
-import Timing from './src/tables/Timings.js'
-import Event from './src/tables/Event.js'
-import EventSqliteDao from './src/dao/eventSqliteDao.js'
-import TimingSqliteDao from './src/dao/timingSqliteDao.js'
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 import fs from 'fs'
-
+/**
+ * Fonction permettant de savoir si une base de données existe.
+ * @returns {bool} - vrai si la base de données existe, faux sinon. 
+ */
 function databaseExists() {
-    const dbPath = './db/database.db'; // Chemin vers la base de données
+    const dbPath = './db/database.db';
 
     if (fs.existsSync(dbPath)) {
-        return true; // La base de données existe
+        return true;
     } else {
-        return false; // La base de données n'existe pas
+        return false;
     }
 }
 
+/**
+ * Fonction permettant de créer une base de données.
+ * @param {sqlite3.Database} db - La base de données à créer.
+ * @returns {sqlite3.Database} - La base de données créée.
+ */
 async function creerdb(db) {
     if (!databaseExists()) {
         db = await open({
@@ -29,44 +32,13 @@ async function creerdb(db) {
     }
 }
 
-//code général de l'application
+/**
+ * Fonction principale de l'application permettant de créer une base de données.
+ */
 async function App() {
     console.log("App is running");
     var db 
-    //cration d'une base de donnée 
     await creerdb(db);
-
-    //creation d'un event
-    const event = new Event("","test","test");
-
-    const now = new Date();
-    const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
-    //creation d'un timing
-    const timing = new Timing("",formattedDate,formattedDate,"test");
-
-    //creation d'un dao
-    const eventSqliteDao = new EventSqliteDao();
-    const timingSqliteDao = new TimingSqliteDao();
-
-    //ajouter a la bdd
-    await eventSqliteDao.insert(event,db);
-    await timingSqliteDao.insert(timing,db);
-
-    //afficher la bdd
-    let res1 = await eventSqliteDao.findAll(db);
-    console.log(res1);
-    let res2 = await timingSqliteDao.findAll(db);
-    console.log(res2);
-
-    console.log(event.getId());
-    console.log(timing.getIdTiming());
-
-
-    //delete de la bdd
-    await eventSqliteDao.delete(event,db);
-    await timingSqliteDao.delete(timing,db);
-    
-
     console.log("App is done");
 }
 

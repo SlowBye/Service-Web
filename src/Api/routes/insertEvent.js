@@ -3,7 +3,14 @@ import Event from '../../dao/eventSqliteDao.js';
 import E from '../../tables/Event.js';
 const router = express.Router();
 
-
+/**
+ * Fonction permettant d'insérer un objet Event dans la base de données.
+ * @name insertEvent
+ * @function
+ * @param {Object} req - Requête envoyée par le client.
+ * @param {Object} res - Réponse envoyée au client.
+ * @returns {Object} - Résultat de la requête.
+ */
 router.post('/', async (req, res) => {
     try {
         let EV = new Event();

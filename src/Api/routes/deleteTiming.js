@@ -3,6 +3,14 @@ import Timming from '../../dao/timingSqliteDao.js';
 const router = express.Router();
 let timing = new Timming();
 
+/**
+ * Fonction permettant de supprimer un objet Timing dans la base de données.
+ * @name delete
+ * @function
+ * @param {Object} req - Requête envoyée par le client.
+ * @param {Object} res - Réponse envoyée au client.
+ * @returns {Object} - Résultat de la requête.
+ */
 router.delete('/', async (req, res) => {
     try {
         let oui = [] 

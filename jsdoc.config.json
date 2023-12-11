@@ -1,0 +1,9 @@
+{
+  "source": {
+    "include": ["./src","./src/Api","./src/Api/routes","./src/tables","./src/dao"],
+    "exclude": ["./node_modules", "./dist"]
+  },
+  "opts": {
+    "destination": "./docs"
+  }
+}

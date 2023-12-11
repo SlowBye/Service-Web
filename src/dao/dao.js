@@ -1,9 +1,26 @@
 import sqlite3 from 'sqlite3'
 import { open } from 'sqlite'
 
+/**
+* Class represente un DAO.
+* @class
+* @abstract
+*/
 class Dao {
+    /**
+    * Constructeur de la classe Dao.
+    * @constructor
+    */
     constructor(){}
 
+    /**
+    * Fonction permettant d'insérer un objet dans la base de données.
+    * @method
+    * @param {Object} data - Objet à insérer dans la base de données.
+    * @param {number} type - Type de l'objet à insérer dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    * @throws {Error} - Lève une erreur si la requête échoue.
+    */
     async insert(data, type) {
         try {
             const db = await open({
@@ -24,7 +41,13 @@ class Dao {
         }
     }
     
-
+    /**
+    * Fonction permettant de mettre à jour un objet dans la base de données.
+    * @method
+    * @param {Object} data - Objet à mettre à jour dans la base de données.
+    * @param {number} type - Type de l'objet à mettre à jour dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    */
     async update(data,type){
         const db = await open({
             filename: '../../db/database.db',
@@ -34,11 +57,18 @@ class Dao {
             return await db.run('UPDATE Event SET title = ?, description = ? WHERE id_Event = ?', [data.title, data.description, data.id]);
         }
         else{
-            console.log(data);
             return await db.run('UPDATE Timing SET start = ?, end = ?, comment = ? WHERE id_Timing = ?', [data.start, data.end, data.comment, data.id]);
         }
     }
 
+    /**
+    * Fonction permettant de supprimer un objet dans la base de données.
+    * @method
+    * @param {Object} data - Objet à supprimer dans la base de données.
+    * @param {number} type - Type de l'objet à supprimer dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    * @throws {Error} - Lève une erreur si la requête échoue.
+    */
     async delete (data,type){
         const db = await open({
             filename: '../../db/database.db',
@@ -52,6 +82,14 @@ class Dao {
         }
     }
 
+    /**
+    * Fonction permettant de récupérer un objet a partir de l'id dans la base de données.
+    * @method
+    * @param {Object} data - Objet à récupérer dans la base de données.
+    * @param {number} type - Type de l'objet à récupérer dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    * @throws {Error} - Lève une erreur si la requête échoue.
+    */
     async findById(data,type){
         const db = await open({
             filename: '../../db/database.db',
@@ -65,6 +103,13 @@ class Dao {
         }
     }
 
+    /**
+    * Fonction permettant de récupérer tous les objets dans la base de données.
+    * @method
+    * @param {number} type - Type de l'objet à récupérer dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    * @throws {Error} - Lève une erreur si la requête échoue.
+    */ 
     async findAll(type){
         const db = await open({
             filename: '../../db/database.db',
@@ -80,6 +125,13 @@ class Dao {
         }
     }
 
+    /**
+    * Fonction permettant de supprimer tous les objets dans la base de données.
+    * @method
+    * @param {number} type - Type de l'objet à supprimer dans la base de données.
+    * @returns {Object} - Résultat de la requête.
+    * @throws {Error} - Lève une erreur si la requête échoue.
+    */
     async deleteAll(type){
         const db = await open({
             filename: '../../db/database.db',
